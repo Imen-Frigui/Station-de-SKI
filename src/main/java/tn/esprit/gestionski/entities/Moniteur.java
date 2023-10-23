@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -18,4 +19,6 @@ public class Moniteur implements Serializable {
     private String prenomM;
     @Temporal(TemporalType.DATE)
     private Date dateRecu;
+    @OneToMany
+    private Set<Cours> coursSet;
 }

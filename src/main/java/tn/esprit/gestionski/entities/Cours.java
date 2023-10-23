@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -21,4 +22,6 @@ public class Cours implements Serializable {
     private Support support;
     private  Float prix;
     private int creneau;
+    @OneToMany(mappedBy = "cour")
+    private Set<Inscription> inscriptionSet;
 }
