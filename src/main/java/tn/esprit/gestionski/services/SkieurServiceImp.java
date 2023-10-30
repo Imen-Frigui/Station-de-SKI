@@ -39,9 +39,4 @@ public class SkieurServiceImp implements Iskieur{
     }
 
 
-    public void addInscpriotn(Skieur s,long id) {
-        skieur = skieurRepository.deleteById(id);
-        skieurRepository.
-    }
-
 }

@@ -5,16 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.gestionski.entities.Inscription;
 import tn.esprit.gestionski.entities.Skieur;
+import tn.esprit.gestionski.services.InscriptionServiceImp;
 import tn.esprit.gestionski.services.Iskieur;
 import tn.esprit.gestionski.services.SkieurServiceImp;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
 public class SkieurController {
 
     public Iskieur skieurServiceImp;
+    public InscriptionServiceImp inscriptionServiceImp;
 
     @PostMapping("/addSk")
     public Skieur addSkieur(@RequestBody Skieur s){
@@ -41,14 +44,9 @@ public class SkieurController {
         skieurServiceImp.deleteSkieur(Id);
     }
 
-    @PostMapping("/{numSkieur}/inscriptions")
-    public Inscription addInscriptionAndAssignToSkieur(@RequestBody Inscription inscription, @PathVariable Long numSkieur) {
-        Skieur skieur = skieurServiceImp.getById(numSkieur);
+    @PostMapping("/{numSkieur}/inscription")
+    public Inscription addInscriptionAndAssignToSkieur(@RequestBody Inscription inscription, @PathVariable long numSkieur) {
+        return inscriptionServiceImp.addInscriptionAndAssignToSkieur(inscription,numSkieur);
 
-        inscription.setSkieur(skieur);
-        //skieur.setInscriptionSet(inscription);
-        skieur.addInscription(inscription);
-        skieurServiceImp.addSkieur(skieur);
-        return inscription;
     }
 }
