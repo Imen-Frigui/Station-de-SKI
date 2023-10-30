@@ -1,5 +1,6 @@
 package tn.esprit.gestionski.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,8 @@ public class Skieur implements Serializable {
     private Date DateNaissance;
     private  String ville;
 
-    @ManyToMany(mappedBy = "skieurSet")
+    @ManyToMany
+    @JsonIgnore
     private Set<Piste> pisteSet;
 
     @OneToMany(mappedBy = "skieur")

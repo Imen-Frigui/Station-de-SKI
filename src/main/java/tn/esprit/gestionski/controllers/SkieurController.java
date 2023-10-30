@@ -17,7 +17,6 @@ import java.util.Set;
 public class SkieurController {
 
     public Iskieur skieurServiceImp;
-    public InscriptionServiceImp inscriptionServiceImp;
 
     @PostMapping("/addSk")
     public Skieur addSkieur(@RequestBody Skieur s){
@@ -44,9 +43,5 @@ public class SkieurController {
         skieurServiceImp.deleteSkieur(Id);
     }
 
-    @PostMapping("/{numSkieur}/inscription")
-    public Inscription addInscriptionAndAssignToSkieur(@RequestBody Inscription inscription, @PathVariable long numSkieur) {
-        return inscriptionServiceImp.addInscriptionAndAssignToSkieur(inscription,numSkieur);
 
-    }
 }

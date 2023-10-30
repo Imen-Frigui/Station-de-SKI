@@ -1,5 +1,6 @@
 package tn.esprit.gestionski.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +20,6 @@ public class Inscription implements Serializable {
     @ManyToOne
     private  Skieur skieur;
     @ManyToOne
+    @JsonIgnore
     private Cours cour;
 }
