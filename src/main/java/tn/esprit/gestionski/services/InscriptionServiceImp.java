@@ -43,7 +43,9 @@ public class InscriptionServiceImp implements Iinscription {
     @Override
     public Inscription addInscriptionAndAssignToSkieur(Inscription inscription, long numSkieur) {
         Skieur sk = skieurServiceImp.getById(numSkieur);
+       // inscription.setSkieur(sk);
         sk.getInscriptionSet().add(inscription);
+        skieurServiceImp.updateSkieur(sk);
         return inscription;
     }
 }
