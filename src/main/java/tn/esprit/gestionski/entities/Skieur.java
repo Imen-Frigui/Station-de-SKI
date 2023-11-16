@@ -1,6 +1,8 @@
 package tn.esprit.gestionski.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +32,8 @@ public class Skieur implements Serializable {
     @JsonIgnore
     private Set<Piste> pisteSet;
 
-    @OneToMany(mappedBy = "skieur")
+    @OneToMany(mappedBy = "skieur", cascade = CascadeType.ALL)
+    @JsonBackReference
     private Set<Inscription> inscriptionSet;
 
     @OneToOne

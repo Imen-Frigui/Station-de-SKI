@@ -43,5 +43,10 @@ public class SkieurController {
         skieurServiceImp.deleteSkieur(Id);
     }
 
+    @PostMapping("/assignskieur/{numCour}")
+    public Skieur addSkieurAnAssignToCour (@RequestBody Skieur skieur, @PathVariable long numCour){
+        return skieurServiceImp.addSkieurAndAssignToCour(skieur,numCour);
+    }
+
 
 }

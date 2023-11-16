@@ -1,5 +1,7 @@
 package tn.esprit.gestionski.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,5 +25,6 @@ public class Cours implements Serializable {
     private  Float prix;
     private int creneau;
     @OneToMany(mappedBy = "cour")
+    @JsonManagedReference
     private Set<Inscription> inscriptionSet;
 }

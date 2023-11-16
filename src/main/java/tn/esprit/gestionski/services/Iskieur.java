@@ -10,4 +10,5 @@ public interface Iskieur {
     public List<Skieur> getAllSkieurs();
     public Skieur getById(long id);
     public void deleteSkieur (long id);
+    public Skieur addSkieurAndAssignToCour(Skieur skieur, long numCour);
 }
