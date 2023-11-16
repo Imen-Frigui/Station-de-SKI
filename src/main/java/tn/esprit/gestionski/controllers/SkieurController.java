@@ -3,8 +3,10 @@ package tn.esprit.gestionski.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.gestionski.entities.Abonnement;
 import tn.esprit.gestionski.entities.Inscription;
 import tn.esprit.gestionski.entities.Skieur;
+import tn.esprit.gestionski.entities.TypeAbonnement;
 import tn.esprit.gestionski.services.InscriptionServiceImp;
 import tn.esprit.gestionski.services.Iskieur;
 import tn.esprit.gestionski.services.SkieurServiceImp;
@@ -46,6 +48,10 @@ public class SkieurController {
     @PostMapping("/assignskieur/{numCour}")
     public Skieur addSkieurAnAssignToCour (@RequestBody Skieur skieur, @PathVariable long numCour){
         return skieurServiceImp.addSkieurAndAssignToCour(skieur,numCour);
+    }
+    @GetMapping("/getSkByAnbonnement/{abonnement}")
+    public List<Skieur> findSkieurByAbonnement(@PathVariable TypeAbonnement abonnement){
+        return  skieurServiceImp.findByAbonnement(abonnement);
     }
 
 

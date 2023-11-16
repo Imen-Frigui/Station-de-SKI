@@ -2,9 +2,7 @@ package tn.esprit.gestionski.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.gestionski.entities.Cours;
-import tn.esprit.gestionski.entities.Inscription;
-import tn.esprit.gestionski.entities.Skieur;
+import tn.esprit.gestionski.entities.*;
 import tn.esprit.gestionski.repositories.CourRepository;
 import tn.esprit.gestionski.repositories.InscriptionRepository;
 import tn.esprit.gestionski.repositories.SkieurRepository;
@@ -56,6 +54,11 @@ public class SkieurServiceImp implements Iskieur{
             inscriptionRepository.save(i);
         }
         return skieur1;
+    }
+
+    @Override
+    public List<Skieur> findByAbonnement(TypeAbonnement abonnement) {
+        return skieurRepository.findByAbonnement_TypeAbon(abonnement);
     }
 
 
