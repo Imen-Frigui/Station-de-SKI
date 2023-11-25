@@ -19,4 +19,5 @@ public interface Iinscription {
         public void deleteInscription(long id);
 
         public Inscription addInscriptionAndAssignToSkieur(Inscription inscription, Long numSkieur);
+        public Inscription addRegistrationAndAssignToSkierAndCourse(Inscription inscription, Long numSkieur, Long numCours);
 }

@@ -19,4 +19,10 @@ public class InscriptionController {
         return inscription;
 
     }
+    @PostMapping("/addInscription/{numSkieur}/{numCours}")
+    public Inscription addInscriptionAndAssignToSkierAndCourse(@RequestBody Inscription inscription, @PathVariable Long numSkieur, @PathVariable Long numCours) {
+        Inscription addedInscription = iinscription.addRegistrationAndAssignToSkierAndCourse(inscription, numSkieur, numCours);
+        return addedInscription;
+
+    }
 }
