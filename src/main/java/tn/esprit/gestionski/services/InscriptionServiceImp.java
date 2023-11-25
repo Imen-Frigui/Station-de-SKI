@@ -1,21 +1,20 @@
 package tn.esprit.gestionski.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tn.esprit.gestionski.entities.Cours;
-import tn.esprit.gestionski.entities.Inscription;
-import tn.esprit.gestionski.entities.Skieur;
-import tn.esprit.gestionski.entities.TypeCours;
+import tn.esprit.gestionski.entities.*;
+import tn.esprit.gestionski.repositories.AbonnementRepository;
 import tn.esprit.gestionski.repositories.CourRepository;
 import tn.esprit.gestionski.repositories.InscriptionRepository;
 import tn.esprit.gestionski.repositories.SkieurRepository;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.List;
+
 
 @Service
 @AllArgsConstructor
@@ -24,6 +23,7 @@ public class InscriptionServiceImp implements Iinscription {
     public SkieurRepository skieurRepository;
     public InscriptionRepository inscriptionRepository;
     public CourRepository courRepository;
+    public AbonnementRepository abonnementRepository;
 
     @Override
     public Inscription addInscription(Inscription S) {
@@ -88,6 +88,12 @@ public class InscriptionServiceImp implements Iinscription {
         return inscriptionRepository.save(inscription);
     }
 
+
+    private  Date calculateEndDateThreshold(Date currentDate) {
+        long endDateMillis = currentDate.getTime() + (7L * 24L * 60L * 60L * 1000L);
+        return new Date(endDateMillis);
+    }
+
     private int calculateAge(Date dateOfBirth) {
         if (dateOfBirth == null) {
             return 0;
@@ -100,6 +106,26 @@ public class InscriptionServiceImp implements Iinscription {
         LocalDate currentDate = LocalDate.now();
 
         return Period.between(birthDate, currentDate).getYears();
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 0 1 * ?")
+    public void calculateMrr() {
+        Date currentDate = new Date();
+        Date endDateThreshold = calculateEndDateThreshold(currentDate);
+
+        List<Abonnement> endingSubscriptions = abonnementRepository.findAbonnementByDateDebutBetween(currentDate, endDateThreshold);
+
+        for (Abonnement abonnement : endingSubscriptions) {
+            List<Skieur> skieurs = skieurRepository.findByAbonnement_TypeAbon(abonnement.getTypeAbon());
+
+            for (Skieur skieur : skieurs) {
+                System.out.println("Subscription Number: " + abonnement.getNumAbon());
+                System.out.println("Skieur Information - NumSkieur: " + skieur.getNumSkieur() +
+                        ", FirstName: " + skieur.getNomS() +
+                        ", LastName: " + skieur.getPrenomS());
+            }
+        }
     }
 
 }

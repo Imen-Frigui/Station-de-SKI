@@ -10,4 +10,6 @@ public interface IAbonnement {
     public List<Abonnement> getAbonnementTypeAndDate(TypeAbonnement T);
 
     List<Abonnement> findAbonnementBetweenDateDebutDateFin(Date dateDebut , Date dateFin);
+    public void retrieveSubscriptions();
+
 }

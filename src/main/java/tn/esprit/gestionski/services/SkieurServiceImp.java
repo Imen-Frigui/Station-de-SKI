@@ -1,6 +1,12 @@
 package tn.esprit.gestionski.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.juli.logging.Log;
+import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.gestionski.entities.*;
 import tn.esprit.gestionski.repositories.CourRepository;
@@ -12,12 +18,12 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class SkieurServiceImp implements Iskieur{
 
     private SkieurRepository skieurRepository;
     private CourRepository courRepository;
     private InscriptionRepository inscriptionRepository;
-
     @Override
     public Skieur addSkieur(Skieur S) {
         return skieurRepository.save(S);
@@ -59,6 +65,11 @@ public class SkieurServiceImp implements Iskieur{
     @Override
     public List<Skieur> findByAbonnement(TypeAbonnement abonnement) {
         return skieurRepository.findByAbonnement_TypeAbon(abonnement);
+    }
+    //@Scheduled(fixedRate = 2000)
+    @Scheduled (cron = "0 0 0 * * ?")
+    public void fixedRate(){
+        log.info("methode with fixed rate");
     }
 
 

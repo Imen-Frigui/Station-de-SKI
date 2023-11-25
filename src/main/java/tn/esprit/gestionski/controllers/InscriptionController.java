@@ -1,12 +1,13 @@
 package tn.esprit.gestionski.controllers;
 
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import tn.esprit.gestionski.entities.Inscription;
+import tn.esprit.gestionski.entities.Support;
 import tn.esprit.gestionski.services.Iinscription;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -25,4 +26,11 @@ public class InscriptionController {
         return addedInscription;
 
     }
+    @PostMapping("/calcul")
+    public ResponseEntity<String> triggerSubscriptionRetrieval() {
+        iinscription.calculateMrr();
+        return ResponseEntity.ok("calcul triggered successfully. Check the logs for details.");
+    }
+
+
 }
